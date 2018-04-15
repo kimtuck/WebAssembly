@@ -9,9 +9,11 @@ fn my_string_safe(i: *mut c_char) -> String {
 }
 
 #[no_mangle]
-pub fn fix_story(xin: *mut c_char) -> *mut c_char {
-    let data = my_string_safe(xin);
-    let out = data.replace("one", "twice");
+pub fn replace(text: *mut c_char, from: *mut c_char, to: *mut c_char) -> *mut c_char {
+    let text = my_string_safe(text);
+    let from = my_string_safe(from);
+    let to = my_string_safe(to);
+    let out = text.replace(&from, &to);
 
     CString::new(out)
     .unwrap()

@@ -8,4 +8,4 @@ Links
 
 [Webassembly, rust, wasm-unknown-unknown](https://www.hellorust.com/setup/wasm-target/)
 
-
+[arguments](https://kripken.github.io/emscripten-site/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html)

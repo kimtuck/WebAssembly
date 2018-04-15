@@ -11,17 +11,21 @@
         var fix_story;
 
         var onChange = function() {
-            var text = $('#in').val();
-            var modified = fix_story(text);
-            $('#fred').text(modified);
+            var from = $('#from').val();
+            var to = $('#to').val();
+            var text = $('#text').val();
+            var modified = replace(text,from,to);
+            $('#result').text(modified);
         }
         Module.addOnInit(function () {
-            fix_story = Module.cwrap('fix_story', 'string', ['string']);
+            replace = Module.cwrap('replace', 'string', ['string','string','string']);
         });
     </script></head>
 <body>
-<h1>If you type "one" it is replaced by the word "twice"</h1>
-    <input id="in" onkeyup="onChange()">
-    <div id="fred"></div>
+<h1>Rust Replace example</h1>
+    <label for="from">From </label><input id="from" name="from" onkeyup="onChange()">
+    <label for="to">To </label><input id="to" name="from" onkeyup="onChange()">
+    <label for="text"></label><input id="text" onkeyup="onChange()">
+    <div id="result"></div>
 </body>
 </html>
