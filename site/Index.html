@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Wasm/Rust</title>
-    <script>
-        // This is read and used by `site.js`
-        var Module = {
-            wasmBinaryFile: "web_assembly.wasm"
-        }
+
+    <script type="text/javascript" src="./web_assembly.js"></script>
+    <script type="text/javascript">
+        debugger
+        Module.addOnInit(function () {
+            console.log('Module ready!');
+            debugger
+            var getData = Module.cwrap('get_data', 'string', []);
+            console.log(getData());
+       });
     </script>
-    <script src="web_assembly.js"></script>
 </head>
 <body></body>
 </html>

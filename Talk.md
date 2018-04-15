@@ -29,3 +29,4 @@
     * Python 2.7.12 or newer
     * Git latest
     
+* Rust --> webassembly can be loaded into node as well
