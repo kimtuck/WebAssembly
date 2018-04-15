@@ -1,21 +1,21 @@
 use std::os::raw::c_char;
+use std::ffi::CStr;
 use std::ffi::CString;
-use std::collections::HashMap;
+
+fn my_string_safe(i: *mut c_char) -> String {
+    unsafe {
+        CStr::from_ptr(i).to_string_lossy().into_owned()
+    }
+}
 
 #[no_mangle]
-pub fn get_data() -> *mut c_char {
-    let mut data = HashMap::new();
-    data.insert("Alice", "send");
-    data.insert("Bob", "recieve");
-    data.insert("Carol", "intercept");
+pub fn fix_story(xin: *mut c_char) -> *mut c_char {
+    let data = my_string_safe(xin);
+    let out = data.replace("one", "twice");
 
-    let descriptions = data.iter()
-        .map(|(p,a)| format!("{} likes to {} messages", p, a))
-        .collect::<Vec<_>>();
-
-    CString::new(descriptions.join(", "))
-        .unwrap()
-        .into_raw()
+    CString::new(out)
+    .unwrap()
+    .into_raw()
 }
 
 fn main() {

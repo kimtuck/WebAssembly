@@ -23,3 +23,5 @@ gulp.task('copy', function() {
     gulp.src('./target/wasm32-unknown-emscripten/release/deps/*.js')
         .pipe(gulp.dest('./site'));
 });
+
+gulp.task('go',['build','copy','serve'])

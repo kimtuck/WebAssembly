@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <title>Wasm/Rust</title>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script type="text/javascript" src="./web_assembly.js"></script>
     <script type="text/javascript">
-        debugger
+
+        var fix_story;
+
+        var onChange = function() {
+            var text = $('#in').val();
+            var modified = fix_story(text);
+            $('#fred').text(modified);
+        }
         Module.addOnInit(function () {
-            console.log('Module ready!');
-            debugger
-            var getData = Module.cwrap('get_data', 'string', []);
-            console.log(getData());
-       });
-    </script>
-</head>
-<body></body>
+            fix_story = Module.cwrap('fix_story', 'string', ['string']);
+        });
+    </script></head>
+<body>
+<h1>If you type "one" it is replaced by the word "twice"</h1>
+    <input id="in" onkeyup="onChange()">
+    <div id="fred"></div>
+</body>
 </html>
