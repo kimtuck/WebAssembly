@@ -1,8 +1,8 @@
 /* tslint:disable */
-import * as wasm from './js_hello_world_bg';
+import * as wasm from './app_wasm_bg';
 
-const TextDecoder = typeof window === 'object' && window.TextDecoder
-    ? window.TextDecoder
+const TextDecoder = typeof self === 'object' && self.TextDecoder
+    ? self.TextDecoder
     : require('util').TextDecoder;
 
 let cachedDecoder = new TextDecoder('utf-8');
@@ -45,8 +45,8 @@ export function __wbg_f_alert_alert_n(arg0) {
     alert(v0);
 }
 
-const TextEncoder = typeof window === 'object' && window.TextEncoder
-    ? window.TextEncoder
+const TextEncoder = typeof self === 'object' && self.TextEncoder
+    ? self.TextEncoder
     : require('util').TextEncoder;
 
 let cachedEncoder = new TextEncoder('utf-8');

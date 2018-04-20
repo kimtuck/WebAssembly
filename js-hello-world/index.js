@@ -1,4 +1,4 @@
-const js = import("./js_hello_world");
+const js = import("./app_wasm");
 
 js.then(js => {
     js.greet("World!");
