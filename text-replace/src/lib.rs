@@ -4,12 +4,14 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[wasm_bindgen(module = "./index")]
 extern {
-    fn alert(s: &str);
+    fn update_text(s: &str);
 }
 
 #[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
+pub fn text_replace(from: &str, to: &str, text: &str) {
+    let stext = text.to_string();
+    let newtext = stext.replace(from,to);
+    update_text(&newtext);
 }

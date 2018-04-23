@@ -1,5 +1,6 @@
 /* tslint:disable */
 import * as wasm from './app_wasm_bg';
+import { update_text } from './index';
 
 const TextDecoder = typeof self === 'object' && self.TextDecoder
     ? self.TextDecoder
@@ -39,10 +40,10 @@ function getGlobalArgument(arg) {
     return getUint32Memory()[idx];
 }
 
-export function __wbg_f_alert_alert_n(arg0) {
+export function __wbg_f_update_text_update_text_n(arg0) {
     let len0 = getGlobalArgument(0);
     let v0 = getStringFromWasm(arg0, len0);
-    alert(v0);
+    update_text(v0);
 }
 
 const TextEncoder = typeof self === 'object' && self.TextEncoder
@@ -64,13 +65,19 @@ function setGlobalArgument(arg, i) {
     getUint32Memory()[idx] = arg;
 }
 
-export function greet(arg0) {
+export function text_replace(arg0, arg1, arg2) {
     const [ptr0, len0] = passStringToWasm(arg0);
     setGlobalArgument(len0, 0);
+    const [ptr1, len1] = passStringToWasm(arg1);
+    setGlobalArgument(len1, 1);
+    const [ptr2, len2] = passStringToWasm(arg2);
+    setGlobalArgument(len2, 2);
     try {
-        return wasm.greet(ptr0);
+        return wasm.text_replace(ptr0, ptr1, ptr2);
     } finally {
         wasm.__wbindgen_free(ptr0, len0 * 1);
+        wasm.__wbindgen_free(ptr1, len1 * 1);
+        wasm.__wbindgen_free(ptr2, len2 * 1);
     }
 }
 
