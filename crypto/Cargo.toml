@@ -1,6 +1,10 @@
 [package]
-name = "web_assembly"
+name = "app_wasm"
 version = "0.1.0"
 authors = ["Robert Hanson <robert.hanson@solutiondesign.com>"]
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
+wasm-bindgen = "0.2"
