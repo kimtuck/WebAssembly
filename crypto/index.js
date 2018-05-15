@@ -29,17 +29,25 @@ js.then(js => {
     //var symmetricKey = encryptedData.symmetricKey;
 
 
-    var plainText="xx";
-    var a = performance.now()
-    console.time('decrypt');
-    for (var i = 0; i < 500; i++) {
-        var buffer = forge.util.createBuffer(encryptedData.encryptedText.bytes(), 'raw');
-        plainText = Decrypt_Javascript(symmetricKey, encryptedData.iv, buffer);
-    }
-    var b = performance.now();
-    setToText(i, plainText);
-    setTimer(b-a);
+    debugger
+    var buffer = forge.util.createBuffer(encryptedData.encryptedText.bytes(), 'raw');
+    var plainText = Decrypt_Rust(symmetricKey, encryptedData.iv, buffer);
+    setToText(0, plainText);
 
+    /*
+    setTimeout(function() {
+        var plainText="xx";
+        var a = performance.now()
+        console.time('decrypt');
+        for (var i = 0; i < 500; i++) {
+            var buffer = forge.util.createBuffer(encryptedData.encryptedText.bytes(), 'raw');
+            plainText = Decrypt_Javascript(symmetricKey, encryptedData.iv, buffer);
+        }
+        var b = performance.now();
+        setToText(i, plainText);
+        setTimer(b-a);
+    },0)
+    */
 
     /*
     function process() {
@@ -105,6 +113,12 @@ function Decrypt_Javascript(symmetricKey, iv, encryptedText)
     decipher.update(encryptedText);
     decipher.finish();
     var plainText = decipher.output.toString('utf8')
+    return plainText;
+}
+
+function Decrypt_Rust(symmetricKey, iv, encryptedText)
+{
+    var plainText = decrypt_rust(symmetricKey, iv, encryptedText)
     return plainText;
 }
 
