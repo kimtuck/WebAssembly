@@ -4,21 +4,38 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(module = "./index")]
+#[wasm_bindgen]
 extern {
-     fn update(results: &Vec<Counter>);
+    fn update(key: &str, count: i32);
 }
 
+
 #[derive(Debug)]
-pub struct Counter {
+#[wasm_bindgen]
+pub struct WordLetterCounts {
+    key: String,
+    count: i32
+}
+
+#[wasm_bindgen]
+impl WordLetterCounts {
+    pub fn new(key: String, count: i32) -> WordLetterCounts {
+        WordLetterCounts { key: key, count: count }
+    }
+}
+
+struct Counter {
     key: char,
     count: i32
 }
+
 impl Counter {
-        pub fn new(key: char, count: i32) -> Counter {
-            Counter { key: key, count: count }
-        }
+    pub fn new(key: char, count: i32) -> Counter {
+        Counter { key: key, count: count }
+    }
 }
+
+
 
 fn letters() -> Vec<Counter> {
     let s = "abcdefghijklmnopqrstuvwxyz";
@@ -45,31 +62,32 @@ fn wordReducer(wordCounts: Vec<Counter>, word: &str) -> Vec<Counter> {
             }
         }
     }
-    /*
-    println!("------");
-    println!("After wordReducer: {}", word);
-    println!("wordCounts {:?}", wordCounts);
-    println!("letterCounts {:?}", letterCounts);
-    println!("combined {:?}", combine(&wordCounts, &letterCounts));
-    println!("");
-    */
+    //println!("------");
+    //println!("After wordReducer: {}", word);
+    //println!("wordCounts {:?}", wordCounts);
+    //println!("letterCounts {:?}", letterCounts);
+    //println!("combined {:?}", combine(&wordCounts, &letterCounts));
+    //println!("");
     combine(&wordCounts, &letterCounts)
 }
 
-/* a method we can call from javascript */
-#[wasm_bindgen]
-pub fn countLettersInWords(str: &str) -> Vec<Counter>{
+pub fn count_letters_in_words_impl(str: &str) -> Vec<WordLetterCounts> {
     let lcase_str = str.to_lowercase();
-   let words: Vec<&str> = lcase_str
-    .split(" ")
-    .collect();
+    let words: Vec<&str> = lcase_str
+      .split(" ")
+      .collect();
    let wordLetterCounts = letters();
    let counts = words.iter().fold(wordLetterCounts, |accum, word| wordReducer(accum, word));
-   counts
+   let wordCounts: Vec<WordLetterCounts> = counts.iter().map(|x| WordLetterCounts::new(x.key.to_string(), x.count)).collect();
+   wordCounts
 }
 
-
-
+// Does not return anything; instead calls javascript accumulator method
+#[wasm_bindgen]
+pub fn count_letters_in_words(str: &str) {
+   let wordCounts: Vec<WordLetterCounts> = count_letters_in_words_impl(str);
+   wordCounts.iter().for_each(move |x| update(&x.key, x.count));
+}
 
 #[test]
 fn counter_new() {
@@ -121,26 +139,27 @@ fn wordreducer_test2() {
 
 #[test]
 fn countLettersInWords_test() {
-    let count = countLettersInWords("a");
-    assert_eq!('a', count[0].key);
+    let count = count_letters_in_words_impl("a");
+    assert_eq!("a", count[0].key);
     assert_eq!(1, count[0].count);
 }
 #[test]
 fn countLettersInWords_test2() {
-    let count = countLettersInWords("a a");
-    assert_eq!('a', count[0].key);
+    let count = count_letters_in_words_impl("a a");
+    assert_eq!("a", count[0].key);
     assert_eq!(2, count[0].count);
 }
 #[test]
 fn countLettersInWords_test3() {
-    let count = countLettersInWords("ab ab");
-    assert_eq!('a', count[0].key);
+    let count = count_letters_in_words_impl("ab ab");
+    assert_eq!("a", count[0].key);
     assert_eq!(2, count[0].count);
 }
 
 #[test]
 fn countLettersInWords_test_mixed_upper_and_lower() {
-    let count = countLettersInWords("a A a A");
-    assert_eq!('a', count[0].key);
+    let count = count_letters_in_words_impl("a A a A");
+    assert_eq!("a", count[0].key);
     assert_eq!(4, count[0].count);
 }
+

@@ -1,5 +1,11 @@
+
+export function update(s,count) {
+    $('#elapsed').text(s);
+}
+
 const js = import("./app_wasm");
 js.then(js => {
+    debugger
 
     var letters = () => "abcdefghijklmnopqrstuvwxyz".split("").reduce((accum, letter) => { accum[letter] = 0; return accum; },{} );
 
@@ -27,18 +33,17 @@ js.then(js => {
     fetch('./MobyDick.txt')
         .then(response => response.text())
         .then(text => {
+            /*
             var a = performance.now()
             var counts = letterCounts(text);
             var b = performance.now();
             showResults(counts);
             showElapsed(b-a);
+            */
+
+            js.count_letters_in_words(text)
+
+
         })
 });
-
-export function showResults(s) {
-    $('#result').text(s);
-}
-export function showElapsed(s) {
-    $('#elapsed').text(s);
-}
 
