@@ -1,6 +1,5 @@
 /* tslint:disable */
 import * as wasm from './app_wasm_bg';
-import { update } from './updater';
 
 let slab = [];
 
@@ -75,6 +74,13 @@ export function __wbg_f_body_body_HTMLDocument(arg0) {
     return addHeapObject(__wbg_f_body_body_HTMLDocument_target.call(getObject(arg0)));
 }
 
+const __wbg_f_getElementById_get_element_by_id_HTMLDocument_target = HTMLDocument.prototype.getElementById;
+
+export function __wbg_f_getElementById_get_element_by_id_HTMLDocument(arg0, arg1, arg2) {
+    let varg1 = getStringFromWasm(arg1, arg2);
+    return addHeapObject(__wbg_f_getElementById_get_element_by_id_HTMLDocument_target.call(getObject(arg0), varg1));
+}
+
 const __wbg_f_set_inner_html_set_inner_html_Element_target = GetOwnOrInheritedPropertyDescriptor(Element.prototype, 'innerHTML').set;;
 
 export function __wbg_f_set_inner_html_set_inner_html_Element(arg0, arg1, arg2) {
@@ -105,11 +111,6 @@ function takeObject(idx) {
 
 export function __wbg_f_appendChild_append_child_Element(arg0, arg1) {
     __wbg_f_appendChild_append_child_Element_target.call(getObject(arg0), takeObject(arg1));
-}
-
-export function __wbg_f_update_update_n(arg0, arg1, arg2) {
-    let varg0 = getStringFromWasm(arg0, arg1);
-    update(varg0, arg2);
 }
 
 const TextEncoder = typeof self === 'object' && self.TextEncoder

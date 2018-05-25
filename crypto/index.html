@@ -2,8 +2,8 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <style type="text/css">
-        .panel { display: flex; flex-direction: row; outline: solid red 1px; }
-        .panel > div { flex-grow: 1; outline: solid green 2px; }
+        .panel { display: flex; flex-direction: row; }
+        .panel > div { flex-grow: 1; }
         ul { list-style: none; }
         ul li span { display: inline-block; width: 3em; }
     </style>
@@ -24,7 +24,7 @@
 
         <div class="elapses">
             <span>Elapsed: </span>
-            <span class="elapsed-js"></span>
+            <span id="elapsed-js"></span>
         </div>
 
         <h2>Results</h2>
@@ -41,17 +41,13 @@
 
         <div class="elapses">
             <span>Elapsed: </span>
-            <span class="elapsed-wasm"></span>
+            <span id="elapsed-wasm"></span>
         </div>
         <h2>Results</h2>
-        <div class="results-wasm"></div>
+        <div id="results-wasm"></div>
 
     </div>
 </div>
-    <label for="to">Elapsed:  </label><span name="elapsed" id="elapsed"></span> ms
-
-    counts: <span id="result"></span>
-
 <script
         src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="

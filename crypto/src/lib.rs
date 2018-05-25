@@ -15,23 +15,20 @@ extern {
     fn createElement(this: &HTMLDocument, tagName: &str) -> Element;
     #[wasm_bindgen(method, getter)]
     fn body(this: &HTMLDocument) -> Element;
+    #[wasm_bindgen(method, js_name = getElementById)]
+    fn get_element_by_id(this: &HTMLDocument, id: &str) -> Element;
 
     type Element;
     #[wasm_bindgen(method, setter = innerHTML)]
     fn set_inner_html(this: &Element, html: &str);
     #[wasm_bindgen(method, js_name = appendChild)]
     fn append_child(this: &Element, other: Element);
+
+
 }
 
 
 //------------------------------------------------------------------------
-
-#[wasm_bindgen(module = "./updater")]
-extern {
-    #[wasm_bindgen(js_name=update)]
-    fn update(key: &str, count: i32);
-}
-
 
 #[derive(Debug)]
 #[wasm_bindgen]
@@ -95,8 +92,7 @@ fn wordReducer(wordCounts: Vec<Counter>, word: &str) -> Vec<Counter> {
 }
 
 pub fn count_letters_in_words_impl(str: &str) -> Vec<WordLetterCounts> {
-    let lcase_str = str.to_lowercase();
-    let words: Vec<&str> = lcase_str
+    let words: Vec<&str> = str
       .split(" ")
       .collect();
    let wordLetterCounts = letters();
@@ -109,9 +105,8 @@ pub fn count_letters_in_words_impl(str: &str) -> Vec<WordLetterCounts> {
 #[wasm_bindgen]
 pub fn count_letters_in_words(str: &str) {
    let wordCounts: Vec<WordLetterCounts> = count_letters_in_words_impl(str);
-   wordCounts.iter().for_each(move |x| update(&x.key, x.count));
 
-
+   /*
    let ul = wordCounts.iter().fold(document.createElement("ul"), |ul, x|
         { let li = document.createElement("li");
         let label=document.createElement("span");
@@ -125,10 +120,10 @@ pub fn count_letters_in_words(str: &str) {
         ul
         }
    );
-   //let root = document.getElementById("rust");
-   let root = document.createElement("div");
+   let root = document.get_element_by_id("results-wasm");
+   //let root = document.createElement("div");
    root.append_child(ul);
-   document.body().append_child(root);
+   */
 }
 
 

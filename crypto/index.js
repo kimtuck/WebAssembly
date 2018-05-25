@@ -9,10 +9,21 @@ js.then(js => {
         .then(response => response.text())
         .then(text => {
 
-            var a = letterCount(text);
-            display_js(a)
+            text=text.toLowerCase();
+            console.log(text);
 
+            var a = performance.now()
             js.count_letters_in_words(text)
+            var b = performance.now();
+            document.getElementById('elapsed-wasm').innerHTML = (b-a);
+
+
+            var a = performance.now()
+            var list = letterCount(text);
+            //display_js(list);
+            var b = performance.now();
+            document.getElementById('elapsed-js').innerHTML = (b-a);
+
 
 
             /*
