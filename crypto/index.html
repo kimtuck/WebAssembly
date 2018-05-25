@@ -2,7 +2,10 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <style type="text/css">
-        div { max-height: 40px; overflow: hidden; text-overflow: ellipsis; }
+        .panel { display: flex; flex-direction: row; outline: solid red 1px; }
+        .panel > div { flex-grow: 1; outline: solid green 2px; }
+        ul { list-style: none; }
+        ul li span { display: inline-block; width: 3em; }
     </style>
 
 </head>
@@ -10,7 +13,41 @@
 
 <h1>Letter Count Example</h1>
 
-<h2>Javascript</h2>
+<div class="panel">
+    <div>
+        <h2>Javascript</h2>
+
+        <div class="iterations">
+            <span>Iterations: </span>
+            <span class="iterations-js"></span>
+        </div>
+
+        <div class="elapses">
+            <span>Elapsed: </span>
+            <span class="elapsed-js"></span>
+        </div>
+
+        <h2>Results</h2>
+        <div id="results-js"></div>
+
+    </div>
+    <div>
+        <h2>WebAssembly</h2>
+
+        <div class="iterations">
+            <span>Iterations: </span>
+            <span class="iterations-wasm"></span>
+        </div>
+
+        <div class="elapses">
+            <span>Elapsed: </span>
+            <span class="elapsed-wasm"></span>
+        </div>
+        <h2>Results</h2>
+        <div class="results-wasm"></div>
+
+    </div>
+</div>
     <label for="to">Elapsed:  </label><span name="elapsed" id="elapsed"></span> ms
 
     counts: <span id="result"></span>

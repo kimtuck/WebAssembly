@@ -1,8 +1,41 @@
 /* tslint:disable */
 import * as wasm from './app_wasm_bg';
-import { updater } from './updater';
+import { update } from './updater';
 
-const __wbg_f_update_update_n_target = updater.update;
+let slab = [];
+
+let slab_next = 0;
+
+function addHeapObject(obj) {
+    if (slab_next === slab.length)
+        slab.push(slab.length + 1);
+    const idx = slab_next;
+    const next = slab[idx];
+
+    slab_next = next;
+
+    slab[idx] = { obj, cnt: 1 };
+    return idx << 1;
+}
+
+export function __wbg_static_accessor_document_document() {
+    return addHeapObject(document);
+}
+
+const __wbg_f_createElement_createElement_HTMLDocument_target = HTMLDocument.prototype.createElement;
+
+let stack = [];
+
+function getObject(idx) {
+    if ((idx & 1) === 1) {
+        return stack[idx >> 1];
+    } else {
+        const val = slab[idx >> 1];
+
+    return val.obj;
+
+    }
+}
 
 const TextDecoder = typeof self === 'object' && self.TextDecoder
     ? self.TextDecoder
@@ -22,9 +55,61 @@ function getStringFromWasm(ptr, len) {
     return cachedDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
 }
 
+export function __wbg_f_createElement_createElement_HTMLDocument(arg0, arg1, arg2) {
+    let varg1 = getStringFromWasm(arg1, arg2);
+    return addHeapObject(__wbg_f_createElement_createElement_HTMLDocument_target.call(getObject(arg0), varg1));
+}
+
+function GetOwnOrInheritedPropertyDescriptor(obj, id) {
+  while (obj) {
+    let desc = Object.getOwnPropertyDescriptor(obj, id);
+    if (desc) return desc;
+    obj = Object.getPrototypeOf(obj);
+  }
+  throw "descriptor not found";
+}
+
+const __wbg_f_body_body_HTMLDocument_target = GetOwnOrInheritedPropertyDescriptor(HTMLDocument.prototype, 'body').get;;
+
+export function __wbg_f_body_body_HTMLDocument(arg0) {
+    return addHeapObject(__wbg_f_body_body_HTMLDocument_target.call(getObject(arg0)));
+}
+
+const __wbg_f_set_inner_html_set_inner_html_Element_target = GetOwnOrInheritedPropertyDescriptor(Element.prototype, 'innerHTML').set;;
+
+export function __wbg_f_set_inner_html_set_inner_html_Element(arg0, arg1, arg2) {
+    let varg1 = getStringFromWasm(arg1, arg2);
+    __wbg_f_set_inner_html_set_inner_html_Element_target.call(getObject(arg0), varg1);
+}
+
+const __wbg_f_appendChild_append_child_Element_target = Element.prototype.appendChild;
+
+function dropRef(idx) {
+
+    let obj = slab[idx >> 1];
+
+    obj.cnt -= 1;
+    if (obj.cnt > 0)
+        return;
+
+    // If we hit 0 then free up our space in the slab
+    slab[idx >> 1] = slab_next;
+    slab_next = idx >> 1;
+}
+
+function takeObject(idx) {
+    const ret = getObject(idx);
+    dropRef(idx);
+    return ret;
+}
+
+export function __wbg_f_appendChild_append_child_Element(arg0, arg1) {
+    __wbg_f_appendChild_append_child_Element_target.call(getObject(arg0), takeObject(arg1));
+}
+
 export function __wbg_f_update_update_n(arg0, arg1, arg2) {
     let varg0 = getStringFromWasm(arg0, arg1);
-    __wbg_f_update_update_n_target(varg0, arg2);
+    update(varg0, arg2);
 }
 
 const TextEncoder = typeof self === 'object' && self.TextEncoder
@@ -50,6 +135,10 @@ export function count_letters_in_words(arg0) {
     }
 }
 
+export function run() {
+    return wasm.run();
+}
+
 export class WordLetterCounts {
 
                 static __construct(ptr) {
@@ -71,35 +160,6 @@ export class WordLetterCounts {
 }
 }
 
-let slab = [];
-
-let slab_next = 0;
-
-function addHeapObject(obj) {
-    if (slab_next === slab.length)
-        slab.push(slab.length + 1);
-    const idx = slab_next;
-    const next = slab[idx];
-
-    slab_next = next;
-
-    slab[idx] = { obj, cnt: 1 };
-    return idx << 1;
-}
-
-let stack = [];
-
-function getObject(idx) {
-    if ((idx & 1) === 1) {
-        return stack[idx >> 1];
-    } else {
-        const val = slab[idx >> 1];
-
-    return val.obj;
-
-    }
-}
-
 export function __wbindgen_object_clone_ref(idx) {
     // If this object is on the stack promote it to the heap.
     if ((idx & 1) === 1)
@@ -110,19 +170,6 @@ export function __wbindgen_object_clone_ref(idx) {
     const val = slab[idx >> 1];
     val.cnt += 1;
     return idx;
-}
-
-function dropRef(idx) {
-
-    let obj = slab[idx >> 1];
-
-    obj.cnt -= 1;
-    if (obj.cnt > 0)
-        return;
-
-    // If we hit 0 then free up our space in the slab
-    slab[idx >> 1] = slab_next;
-    slab_next = idx >> 1;
 }
 
 export function __wbindgen_object_drop_ref(i) { dropRef(i); }

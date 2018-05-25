@@ -4,9 +4,31 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
+//---------------------------------------------
+// DOM
+//
+#[wasm_bindgen]
+extern {
+    type HTMLDocument;
+    static document: HTMLDocument;
+    #[wasm_bindgen(method)]
+    fn createElement(this: &HTMLDocument, tagName: &str) -> Element;
+    #[wasm_bindgen(method, getter)]
+    fn body(this: &HTMLDocument) -> Element;
+
+    type Element;
+    #[wasm_bindgen(method, setter = innerHTML)]
+    fn set_inner_html(this: &Element, html: &str);
+    #[wasm_bindgen(method, js_name = appendChild)]
+    fn append_child(this: &Element, other: Element);
+}
+
+
+//------------------------------------------------------------------------
+
 #[wasm_bindgen(module = "./updater")]
 extern {
-    #[wasm_bindgen(js_namespace = updater, js_name=update)]
+    #[wasm_bindgen(js_name=update)]
     fn update(key: &str, count: i32);
 }
 
@@ -83,11 +105,39 @@ pub fn count_letters_in_words_impl(str: &str) -> Vec<WordLetterCounts> {
    wordCounts
 }
 
-// Does not return anything; instead calls javascript accumulator method
+// Public method: Creates DOM nodes with output
 #[wasm_bindgen]
 pub fn count_letters_in_words(str: &str) {
    let wordCounts: Vec<WordLetterCounts> = count_letters_in_words_impl(str);
    wordCounts.iter().for_each(move |x| update(&x.key, x.count));
+
+
+   let ul = wordCounts.iter().fold(document.createElement("ul"), |ul, x|
+        { let li = document.createElement("li");
+        let label=document.createElement("span");
+        let value=document.createElement("span");
+        label.set_inner_html(x.key.as_str());
+        value.set_inner_html(x.count.to_string().as_str());
+        li.append_child(label);
+        li.append_child(value);
+        ul.append_child(li);
+        //update(&x.key, x.count)
+        ul
+        }
+   );
+   //let root = document.getElementById("rust");
+   let root = document.createElement("div");
+   root.append_child(ul);
+   document.body().append_child(root);
+}
+
+
+// Called by our JS entry point to run the example
+#[wasm_bindgen]
+pub fn run() {
+    let val = document.createElement("p");
+    val.set_inner_html("Hello from Rust!");
+    document.body().append_child(val);
 }
 
 #[test]
