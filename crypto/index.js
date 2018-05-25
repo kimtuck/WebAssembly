@@ -1,7 +1,8 @@
 
-export function update(s,count) {
+function update(s,count) {
     $('#elapsed').text(s);
 }
+module.exports = update;
 
 const js = import("./app_wasm");
 js.then(js => {

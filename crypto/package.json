@@ -5,9 +5,9 @@
     "update": "cargo update -p wasm-bindgen"
   },
   "devDependencies": {
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^3.1.0"
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
     "forge": "^2.3.0",

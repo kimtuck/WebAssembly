@@ -4,8 +4,9 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[wasm_bindgen(module = "./updater")]
 extern {
+    #[wasm_bindgen(js_namespace = updater, js_name=update)]
     fn update(key: &str, count: i32);
 }
 

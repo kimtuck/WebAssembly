@@ -2,7 +2,7 @@
 name = "app_wasm"
 version = "0.1.0"
 dependencies = [
- "wasm-bindgen 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -89,40 +89,40 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.5"
+version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "wasm-bindgen-macro 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-macro 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-backend"
-version = "0.2.5"
+version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 0.13.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-shared 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-shared 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.5"
+version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 0.13.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-backend 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-shared 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-backend 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-shared 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.5"
+version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "serde 1.0.39 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -141,7 +141,7 @@ dependencies = [
 "checksum serde_json 1.0.15 (registry+https://github.com/rust-lang/crates.io-index)" = "7bf1cbb1387028a13739cb018ee0d9b3db534f22ca3c84a5904f7eadfde14e75"
 "checksum syn 0.13.1 (registry+https://github.com/rust-lang/crates.io-index)" = "91b52877572087400e83d24b9178488541e3d535259e04ff17a63df1e5ceff59"
 "checksum unicode-xid 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "fc72304796d0818e357ead4e000d19c9c174ab23dc11093ac919054d20a6a7fc"
-"checksum wasm-bindgen 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)" = "1e2aed82d81697dd9ff4050841b7840ed18b7cdf734500676e93dc855b898a9c"
-"checksum wasm-bindgen-backend 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)" = "a36874883d6d4ab158752938cbb450557f66d5be02e022f6f72a3a175e8d8fe6"
-"checksum wasm-bindgen-macro 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)" = "fe24c78deabf4cc0f19a6ebc95a900233783fba4171f6bfb0c4e112894b1757c"
-"checksum wasm-bindgen-shared 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)" = "a3fb9c729e1251acb40d9b740ab94100db481452f55b79ef9a68fd60a1d16ea7"
+"checksum wasm-bindgen 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)" = "87daf545846c1bc5f4fa9919af32f137703ec6340a3f4f7a1967eece6134d966"
+"checksum wasm-bindgen-backend 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)" = "ec0d4650b8fdbd4e4d778a4c43d4679dbec8d3bf2ae22e326ce97fa7a8aa99bd"
+"checksum wasm-bindgen-macro 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)" = "7f628bc1bd660ce69112b8f379d85a944671a6c99026362f051c1c1be2265464"
+"checksum wasm-bindgen-shared 0.2.10 (registry+https://github.com/rust-lang/crates.io-index)" = "244bcb6b6e4c42d016de8cde261fa1382efe93fed28d6ea41fa0069e665cc00e"

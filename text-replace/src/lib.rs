@@ -3,9 +3,9 @@
 extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen(module = "./index")]
+#[wasm_bindgen]
 extern {
+    #[wasm_bindgen(js_name = update_text)]
     fn update_text(s: &str);
 }
 

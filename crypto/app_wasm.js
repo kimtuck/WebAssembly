@@ -1,5 +1,8 @@
 /* tslint:disable */
 import * as wasm from './app_wasm_bg';
+import { updater } from './updater';
+
+const __wbg_f_update_update_n_target = updater.update;
 
 const TextDecoder = typeof self === 'object' && self.TextDecoder
     ? self.TextDecoder
@@ -21,8 +24,7 @@ function getStringFromWasm(ptr, len) {
 
 export function __wbg_f_update_update_n(arg0, arg1, arg2) {
     let varg0 = getStringFromWasm(arg0, arg1);
-    debugger
-    update(varg0, arg2);
+    __wbg_f_update_update_n_target(varg0, arg2);
 }
 
 const TextEncoder = typeof self === 'object' && self.TextEncoder
