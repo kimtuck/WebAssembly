@@ -140,27 +140,6 @@ export function run() {
     return wasm.run();
 }
 
-export class WordLetterCounts {
-
-                static __construct(ptr) {
-                    return new WordLetterCounts(ptr);
-                }
-
-                constructor(ptr) {
-                    this.ptr = ptr;
-                }
-
-            free() {
-                const ptr = this.ptr;
-                this.ptr = 0;
-                wasm.__wbg_wordlettercounts_free(ptr);
-            }
-        static new(arg0, arg1) {
-    const [ptr0, len0] = passStringToWasm(arg0);
-    return WordLetterCounts.__construct(wasm.wordlettercounts_new(ptr0, len0, arg1));
-}
-}
-
 export function __wbindgen_object_clone_ref(idx) {
     // If this object is on the stack promote it to the heap.
     if ((idx & 1) === 1)

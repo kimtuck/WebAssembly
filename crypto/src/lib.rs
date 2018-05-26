@@ -30,21 +30,8 @@ extern {
 
 //------------------------------------------------------------------------
 
-#[derive(Debug)]
-#[wasm_bindgen]
-pub struct WordLetterCounts {
-    key: String,
-    count: i32
-}
 
-#[wasm_bindgen]
-impl WordLetterCounts {
-    pub fn new(key: String, count: i32) -> WordLetterCounts {
-        WordLetterCounts { key: key, count: count }
-    }
-}
-
-struct Counter {
+pub struct Counter {
     key: char,
     count: i32
 }
@@ -82,36 +69,38 @@ fn wordReducer(wordCounts: Vec<Counter>, word: &str) -> Vec<Counter> {
             }
         }
     }
-    //println!("------");
-    //println!("After wordReducer: {}", word);
-    //println!("wordCounts {:?}", wordCounts);
-    //println!("letterCounts {:?}", letterCounts);
-    //println!("combined {:?}", combine(&wordCounts, &letterCounts));
-    //println!("");
     combine(&wordCounts, &letterCounts)
 }
 
-pub fn count_letters_in_words_impl(str: &str) -> Vec<WordLetterCounts> {
+pub fn count_letters_in_words_impl(str: &str) -> Vec<Counter> {
     let words: Vec<&str> = str
       .split(" ")
       .collect();
    let wordLetterCounts = letters();
    let counts = words.iter().fold(wordLetterCounts, |accum, word| wordReducer(accum, word));
-   let wordCounts: Vec<WordLetterCounts> = counts.iter().map(|x| WordLetterCounts::new(x.key.to_string(), x.count)).collect();
-   wordCounts
+   counts
 }
 
 // Public method: Creates DOM nodes with output
 #[wasm_bindgen]
 pub fn count_letters_in_words(str: &str) {
-   let wordCounts: Vec<WordLetterCounts> = count_letters_in_words_impl(str);
+   let wordCounts: Vec<Counter> = count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
 
-   /*
+
    let ul = wordCounts.iter().fold(document.createElement("ul"), |ul, x|
         { let li = document.createElement("li");
         let label=document.createElement("span");
         let value=document.createElement("span");
-        label.set_inner_html(x.key.as_str());
+        label.set_inner_html(x.key.to_string().as_str());
         value.set_inner_html(x.count.to_string().as_str());
         li.append_child(label);
         li.append_child(value);
@@ -123,7 +112,6 @@ pub fn count_letters_in_words(str: &str) {
    let root = document.get_element_by_id("results-wasm");
    //let root = document.createElement("div");
    root.append_child(ul);
-   */
 }
 
 
