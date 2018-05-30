@@ -36,8 +36,8 @@ pub struct Counter {
 }
 
 impl Counter {
-    pub fn new(key: &str, count: i32) -> Counter {
-        Counter { letter: str_to_first_char(key), count: count }
+    pub fn new(key: char, count: i32) -> Counter {
+        Counter { letter: key, count: count }
     }
 }
 
@@ -45,55 +45,59 @@ fn str_to_first_char(str: &str) -> char {
     str.chars().next().unwrap()
 }
 
-fn unique(word: &str) -> Vec<&str> {
-    let mut chars: Vec<&str> = word.split("").collect();
+fn unique(word: &str) -> Vec<char> {
+    let mut chars: Vec<char> = word.chars().collect();
     chars.sort();
     chars.dedup_by(|a,b| *a == *b);
-    chars.remove(0); // remove the "";
     chars
 }
 
 fn letters() -> Vec<Counter> {
-    let s = unique("abcdefghijklmnopqrstuvwxyz");
-    s.iter().map(|x| Counter::new(x,0)).collect()
+    "abcdefghijklmnopqrstuvwxyz"
+        .chars()
+        .map(|x| Counter::new(x,0)).collect()
 }
 
 fn wordReducer(letterCounts: &mut Vec<Counter>, word: &str) {
     let lettersInWord = unique(word);
     lettersInWord.iter().for_each(|x| {
-        let ch = str_to_first_char(x);
-        let pos = letterCounts.iter().position(|ref x| x.letter == ch).unwrap();
-        {
+        let ch = *x;
+        //log(format!("find pos for {}",ch));
+        if let Some(pos) = letterCounts.iter().position(|ref x| x.letter == ch) {
             let elem = &mut letterCounts[pos];
             elem.count += 1;
         }
-        })
+        //else {
+        //    log(format!("unable to find position in letterCounts for {}",ch));
+        //}
+    })
 }
 
-pub fn count_letters_in_words_impl(str: &str) -> Vec<Counter> {
+fn count_letters_in_words_impl(str: &str) -> Vec<Counter> {
    let wordLetterCounts = letters();
    let counts = str
-   .to_lowercase()
-   .split_whitespace()
-   .fold(wordLetterCounts, |mut accum, word| { wordReducer(&mut accum, word); accum });
-   counts
+   .to_lowercase();
+
+   let counts2 = counts.split_whitespace();
+   let counts3 = counts2.fold(wordLetterCounts, |mut accum, word| { wordReducer(&mut accum, word); accum });
+   counts3
 }
 
 // Public method: Creates DOM nodes with output
 #[wasm_bindgen]
 pub fn count_letters_in_words(str: &str) {
-   //let wordCounts: Vec<Counter> = count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
-   //count_letters_in_words_impl(str);
+   let wordCounts: Vec<Counter> = count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
+   count_letters_in_words_impl(str);
 
-   //display(wordCounts);
+   display(wordCounts);
 
 }
 
@@ -115,26 +119,31 @@ fn display(wordCounts: Vec<Counter>) {
    root.append_child(ul);
 }
 
+fn log(str: String) {
+   let root = document.get_element_by_id("results-wasm");
+   let value=document.createElement("div");
+   value.set_inner_html(str.as_str());
+   root.append_child(value);
+}
+
 
 #[test]
 fn unique_test(){
     let s= "cbaabcdefa";
-    let mut expected :Vec<&str> = "abcdef".split("").collect();  // ==> ["", "a", "b", "c", "d", "e", "f", ""]
-    expected.remove(0); // remove first ""
-    expected.pop();// remove last ""
+    let mut expected :Vec<char> = "abcdef".chars().collect();  // ==> ["a", "b", "c", "d", "e", "f"]
     assert_eq!(expected,unique(s));
 }
 #[test]
 fn counter_new() {
-    let c = Counter::new("a",3);
+    let c = Counter::new('a',3);
     assert_eq!('a', c.letter);
 }
 
 #[test]
 fn counter_new_with_addition() {
-    let a = Counter::new("a",2);
-    let b = Counter::new("a",4);
-    let c = Counter::new("a", a.count + b.count);
+    let a = Counter::new('a',2);
+    let b = Counter::new('a',4);
+    let c = Counter::new('a', a.count + b.count);
     assert_eq!('a', c.letter);
 }
 
