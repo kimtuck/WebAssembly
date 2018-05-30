@@ -128,16 +128,13 @@ function passStringToWasm(arg) {
 }
 
 export function count_letters_in_words(arg0) {
+    debugger
     const [ptr0, len0] = passStringToWasm(arg0);
     try {
         return wasm.count_letters_in_words(ptr0, len0);
     } finally {
         wasm.__wbindgen_free(ptr0, len0 * 1);
     }
-}
-
-export function run() {
-    return wasm.run();
 }
 
 export function __wbindgen_object_clone_ref(idx) {

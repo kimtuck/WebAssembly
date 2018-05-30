@@ -32,15 +32,6 @@ js.then(js => {
             display_js(list);
             var b = performance.now();
             document.getElementById('elapsed-js').innerHTML = (b-a);
-
-
-
-            var a = performance.now()
-            var counts = letterCounts(text);
-            var b = performance.now();
-            showResults(counts);
-            showElapsed(b-a);
-
         })
 });
 
