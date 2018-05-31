@@ -9,7 +9,8 @@ js.then(js => {
         .then(response => response.text())
         .then(text => {
 
-            text=text.toLowerCase();
+            text=text.toLowerCase().replace(/[^a-z ]/g,'')
+                //.replace(/[^abcde ]/g,'');
             console.log(text);
 
             var a = performance.now()

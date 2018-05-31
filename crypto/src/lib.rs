@@ -3,6 +3,8 @@
 extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
+use std::collections::HashSet;
+use std::collections::HashMap;
 
 //---------------------------------------------
 // DOM
@@ -30,6 +32,7 @@ extern {
 //------------------------------------------------------------------------
 
 
+#[derive(Debug)]
 pub struct Counter {
     letter: char,
     count: i32,
@@ -45,10 +48,8 @@ fn str_to_first_char(str: &str) -> char {
     str.chars().next().unwrap()
 }
 
-fn unique(word: &str) -> Vec<char> {
-    let mut chars: Vec<char> = word.chars().collect();
-    chars.sort();
-    chars.dedup_by(|a,b| *a == *b);
+fn unique(word: &str) -> HashSet<char> {
+    let mut chars: HashSet<char> = word.chars().collect();
     chars
 }
 
@@ -59,13 +60,17 @@ fn letters() -> Vec<Counter> {
 }
 
 fn wordReducer(letterCounts: &mut Vec<Counter>, word: &str) {
+    //log("----------".to_string());
+    //log(format!("{}",word));
     let lettersInWord = unique(word);
+    //log(format!("{:?}",lettersInWord));
+
     lettersInWord.iter().for_each(|x| {
         let ch = *x;
-        //log(format!("find pos for {}",ch));
         if let Some(pos) = letterCounts.iter().position(|ref x| x.letter == ch) {
             let elem = &mut letterCounts[pos];
             elem.count += 1;
+            //log(format!("count {} {:?}",ch,elem));
         }
         //else {
         //    log(format!("unable to find position in letterCounts for {}",ch));
@@ -130,7 +135,7 @@ fn log(str: String) {
 #[test]
 fn unique_test(){
     let s= "cbaabcdefa";
-    let mut expected :Vec<char> = "abcdef".chars().collect();  // ==> ["a", "b", "c", "d", "e", "f"]
+    let mut expected :HashSet<char> = "abcdef".chars().collect();  // ==> ["a", "b", "c", "d", "e", "f"]
     assert_eq!(expected,unique(s));
 }
 #[test]
