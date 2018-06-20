@@ -9,8 +9,7 @@ js.then(js => {
         .then(response => response.text())
         .then(text => {
 
-            text=text.toLowerCase().replace(/[^a-z ]/g,'')
-                //.replace(/[^abcde ]/g,'');
+            text=text.toLowerCase().replace(/[^a-z ]/g,'');
             console.log(text);
 
             var a = performance.now()
@@ -21,16 +20,6 @@ js.then(js => {
 
             var a = performance.now()
             var list = letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            letterCount(text);
-            display_js(list);
             var b = performance.now();
             document.getElementById('elapsed-js').innerHTML = (b-a);
         })
