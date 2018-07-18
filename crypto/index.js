@@ -21,7 +21,7 @@ js.then(js => {
             // Javascript
             var a = performance.now()
             var list = letterCount_js(text);
-            display_js(list);
+            //display_js(list);
             var b = performance.now();
             document.getElementById('elapsed-js').innerHTML = (b-a);
             return text;

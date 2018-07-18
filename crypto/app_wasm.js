@@ -59,6 +59,13 @@ export function __wbg_f_createElement_createElement_HTMLDocument(arg0, arg1, arg
     return addHeapObject(__wbg_f_createElement_createElement_HTMLDocument_target.call(getObject(arg0), varg1));
 }
 
+const __wbg_f_getElementById_get_element_by_id_HTMLDocument_target = HTMLDocument.prototype.getElementById;
+
+export function __wbg_f_getElementById_get_element_by_id_HTMLDocument(arg0, arg1, arg2) {
+    let varg1 = getStringFromWasm(arg1, arg2);
+    return addHeapObject(__wbg_f_getElementById_get_element_by_id_HTMLDocument_target.call(getObject(arg0), varg1));
+}
+
 function GetOwnOrInheritedPropertyDescriptor(obj, id) {
   while (obj) {
     let desc = Object.getOwnPropertyDescriptor(obj, id);
@@ -66,19 +73,6 @@ function GetOwnOrInheritedPropertyDescriptor(obj, id) {
     obj = Object.getPrototypeOf(obj);
   }
   throw "descriptor not found";
-}
-
-const __wbg_f_body_body_HTMLDocument_target = GetOwnOrInheritedPropertyDescriptor(HTMLDocument.prototype, 'body').get;;
-
-export function __wbg_f_body_body_HTMLDocument(arg0) {
-    return addHeapObject(__wbg_f_body_body_HTMLDocument_target.call(getObject(arg0)));
-}
-
-const __wbg_f_getElementById_get_element_by_id_HTMLDocument_target = HTMLDocument.prototype.getElementById;
-
-export function __wbg_f_getElementById_get_element_by_id_HTMLDocument(arg0, arg1, arg2) {
-    let varg1 = getStringFromWasm(arg1, arg2);
-    return addHeapObject(__wbg_f_getElementById_get_element_by_id_HTMLDocument_target.call(getObject(arg0), varg1));
 }
 
 const __wbg_f_set_inner_html_set_inner_html_Element_target = GetOwnOrInheritedPropertyDescriptor(Element.prototype, 'innerHTML').set;;
@@ -135,8 +129,6 @@ export function letter_count_webassembly(arg0) {
         wasm.__wbindgen_free(ptr0, len0 * 1);
     }
 }
-
-export function __wbindgen_object_drop_ref(i) { dropRef(i); }
 
 export function __wbindgen_throw(ptr, len) {
     throw new Error(getStringFromWasm(ptr, len));
