@@ -130,6 +130,8 @@ export function letter_count_webassembly(arg0) {
     }
 }
 
+export function __wbindgen_object_drop_ref(i) { dropRef(i); }
+
 export function __wbindgen_throw(ptr, len) {
     throw new Error(getStringFromWasm(ptr, len));
 }

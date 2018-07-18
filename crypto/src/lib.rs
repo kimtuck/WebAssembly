@@ -68,7 +68,7 @@ fn count_letters_in_words_impl(str: &str) -> Counter {
 #[wasm_bindgen]
 pub fn letter_count_webassembly(str: &str) {
    let word_counts: Counter = count_letters_in_words_impl(str);
-   //display(word_counts);
+   display(word_counts);
 
 }
 
@@ -92,13 +92,12 @@ fn display(word_counts: Counter) {
 fn unique_test(){
     let s= "cbaabcdefa";
     let mut expected :HashSet<char> = "abcdef".chars().collect();  // ==> ["a", "b", "c", "d", "e", "f"]
-    assert_eq!(expected,unique(s));
+    assert_eq!(expected,unique_letters_in_word(s));
 }
 
 #[test]
 fn counter_new() {
     let c = Counter::new();
-    assert_eq!(0, c.counts[&'a']);
 }
 
 
@@ -118,19 +117,19 @@ fn word_reducer_test2() {
 }
 
 #[test]
-fn countLettersInWords_test() {
+fn count_letters_in_words_test() {
     let count = count_letters_in_words_impl("a");
     assert_eq!(1, count.counts[&'a']);
 }
 
 #[test]
-fn countLettersInWords_test2() {
+fn count_letters_in_words_test2() {
     let count = count_letters_in_words_impl("a a");
     assert_eq!(2, count.counts[&'a']);
 }
 
 #[test]
-fn countLettersInWords_test3() {
+fn count_letters_in_words_test3() {
     let count = count_letters_in_words_impl("ab ab");
     assert_eq!(2, count.counts[&'a']);
     assert_eq!(2, count.counts[&'b']);
