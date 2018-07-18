@@ -11,11 +11,10 @@ var wordReducer = (counts, word) => {
     return result;
 }
 
-var letterCount = (str) => {
+var letterCount_js = (str) => {
     var words = str.split(" ");
     var wordsLetterCount = words.reduce(wordReducer, letters());
     return wordsLetterCount;
-    //return Promise.resolve(wordsLetterCount)
 }
 
-export { letterCount }
+export { letterCount_js }

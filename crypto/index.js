@@ -1,27 +1,30 @@
 
 import
 
-{ letterCount } from "./lettercount";
+{ letterCount_js } from "./lettercount";
 
 const js = import("./app_wasm");
 js.then(js => {
     fetch('./MobyDick.txt')
         .then(response => response.text())
+        .then(text => text.toLowerCase().replace(/[^a-z ]/g,''))
+        .then(text => {
+            // Web assembly
+            var a = performance.now()
+            js.letter_count_webassembly(text)
+            var b = performance.now();
+            document.getElementById('elapsed-wasm').innerHTML = (b - a);
+            return text;
+        })
         .then(text => {
 
-            text=text.toLowerCase().replace(/[^a-z ]/g,'');
-            console.log(text);
-
+            // Javascript
             var a = performance.now()
-            js.count_letters_in_words(text)
-            var b = performance.now();
-            document.getElementById('elapsed-wasm').innerHTML = (b-a);
-
-
-            var a = performance.now()
-            var list = letterCount(text);
+            var list = letterCount_js(text);
+            display_js(list);
             var b = performance.now();
             document.getElementById('elapsed-js').innerHTML = (b-a);
+            return text;
         })
 });
 

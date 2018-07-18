@@ -1,5 +1,4 @@
-#![feature(proc_macro, wasm_custom_section, wasm_import_module)]
-
+#![feature(use_extern_macros, wasm_custom_section, wasm_import_module)]
 extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
@@ -49,7 +48,7 @@ impl Counter {
 }
 
 fn unique(word: &str) -> HashSet<char> {
-    let mut chars: HashSet<char> = word.chars().collect();
+    let chars: HashSet<char> = word.chars().collect();
     chars
 }
 
@@ -72,7 +71,7 @@ fn count_letters_in_words_impl(str: &str) -> Counter {
 
 // Public method: Creates DOM nodes with output
 #[wasm_bindgen]
-pub fn count_letters_in_words(str: &str) {
+pub fn letter_count_webassembly(str: &str) {
    let wordCounts: Counter = count_letters_in_words_impl(str);
    display(wordCounts);
 
