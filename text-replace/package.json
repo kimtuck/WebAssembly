@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "serve": "webpack-dev-server",
+    "serve": "webpack-dev-server --port 9001",
     "build": "cargo build --target wasm32-unknown-unknown && wasm-bindgen target/wasm32-unknown-unknown/debug/app_wasm.wasm  --out-dir .",
     "update": "cargo update -p wasm-bindgen"
   },
