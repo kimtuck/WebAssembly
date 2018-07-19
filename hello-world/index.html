@@ -3,6 +3,22 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
 </head>
 <body>
+
+<h1>Basic Hello World Example</h1>
+<p>Sources and Compiled Files
+<ul>
+    <li>source files: index.html, index.js, lib.rs</li>
+    <li>Compiled files: app_wasm.js, app_wasm_bg.wasm</li>
+</ul>
+</p>
+<p>What we see in this demo:
+<ul>
+    <li>Hooking things up: reference index.html --> index.js --> app_wasm.js --> load webassembly as a module</li>
+    <li>wasm-bindgen usage</li>
+    <li>Reference to an external javascript function</li>
+    <li>Invocation of that javascript function (javascript --> web assembly function --> javascript function)</li>
+    <li>Argument passing</li>
+</ul></p>
 <script src='index.js'></script>
 </body>
 </html>
