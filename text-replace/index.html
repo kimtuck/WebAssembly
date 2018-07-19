@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+<style type="text/css">
+    div { border: solid red 1px; padding: 10px; margin-top: 20px; }
+</style>
+
+</head>
+<body>
+
+<h1>Webassembly text replace example</h1>
+<h2>Demonstrates javascript calling a webassembly method, and webassembly calling a javascript method</h2>
+
+<p>The "from", "to", and "text" values are passed into the webassembly method "text_replace", and the result is passed to the javascript method "update_text"</p>
+
+    <label for="from">Text to find:</label><input name="from" id="from">
+    <label for="to">Text to replace:</label><input name="to" id="to">
+    <label for="text">Source text</label><input name="text" id="text">
+
+    <div id="result"></div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous">
+</script>
+<script src="index.js"></script>
+
+</body>
+</html>
