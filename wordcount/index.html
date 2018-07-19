@@ -2,10 +2,19 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <style type="text/css">
+        body {  color: white;
+
+            background-color: midnightblue;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+        }
+        p, ul { font-size: 1.6em; }
+        ul li { line-height: 1.8em; }
         .panel { display: flex; flex-direction: row; }
-        .panel > div { flex-grow: 1; }
-        ul { list-style: none; }
-        ul li span { display: inline-block; width: 3em; }
+        .panel > div { flex-grow: 1;  outline: solid white 1px; margin: 10px; padding: 10px; }
+        .panel > div ul { list-style: none; columns: 4; }
+        .panel > div ul li { line-height: 0.5em; }
+        .panel > div ul li span { display: inline-block; width: 3em; font-size: small; }
     </style>
 
 </head>
@@ -19,6 +28,7 @@
     <li>Comparison of javascript and rust code for doing the same operation</li>
     <li>performance comparison</li>
     <li>Dom node manipulation within rust code</li>
+    <li>Rust tests</li>
 </ul></p>
 
 <div class="panel">
@@ -26,7 +36,6 @@
         <h2>Javascript</h2>
 
         <div class="iterations">
-            <span>Iterations: </span>
             <span class="iterations-js"></span>
         </div>
 
@@ -35,7 +44,6 @@
             <span id="elapsed-js"></span>
         </div>
 
-        <h2>Results</h2>
         <div id="results-js"></div>
 
     </div>
@@ -43,7 +51,6 @@
         <h2>WebAssembly</h2>
 
         <div class="iterations">
-            <span>Iterations: </span>
             <span class="iterations-wasm"></span>
         </div>
 
@@ -51,7 +58,6 @@
             <span>Elapsed: </span>
             <span id="elapsed-wasm"></span>
         </div>
-        <h2>Results</h2>
         <div id="results-wasm"></div>
 
     </div>

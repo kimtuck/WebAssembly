@@ -1,7 +1,5 @@
 
-import
-
-{ letterCount_js } from "./lettercount";
+import { letterCount_js } from "./lettercount";
 
 const js = import("./app_wasm");
 js.then(js => {
