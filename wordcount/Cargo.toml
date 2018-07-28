@@ -7,5 +7,5 @@ authors = ["Robert Hanson <robert.hanson@solutiondesign.com>"]
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bindgen = "0.2"
+wasm-bindgen = "0.2.15"
 indexmap = "1.0.1"

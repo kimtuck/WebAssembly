@@ -14,7 +14,7 @@ js.then(js => {
     });
 })
 
-export function update_text(s) {
+function update(s) {
     $('#result').text(s);
 }
 
