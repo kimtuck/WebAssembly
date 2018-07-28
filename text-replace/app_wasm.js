@@ -1,5 +1,6 @@
 /* tslint:disable */
 import * as wasm from './app_wasm_bg';
+import { update } from './defined-in-js';
 
 const TextDecoder = typeof self === 'object' && self.TextDecoder
     ? self.TextDecoder

@@ -3,9 +3,8 @@
 extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
-#[wasm_bindgen]
-extern {
-    #[wasm_bindgen(js_name = update)]
+#[wasm_bindgen(module = "./defined-in-js")]
+extern "C" {
     fn update(s: &str);
 }
 
